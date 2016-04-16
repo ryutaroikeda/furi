@@ -1,0 +1,47 @@
+#!/bin/bash
+
+ARG_NONE=0
+ARG_HELP=1
+ARG_FILES=2
+
+scriptName=$(basename "$0")
+
+function usage {
+	cat << ENDUSAGE
+	Usage $scriptName [-h] file
+ENDUSAGE
+}
+
+function help {
+	cat << ENDHELP
+	Description
+	Prints the URI of file.
+		-h Print this message.
+	
+ENDHELP
+}
+
+arg=()
+
+while [ $# -gt 0 ]
+do
+	case $1 in
+		-h|--help)
+			arg[ARG_HELP]="1"
+			;;
+		*)
+			arg[ARG_FILES]=$1
+			;;
+	esac
+	shift
+done
+
+if [ -n "${arg[ARG_HELP]}" ] ; then
+	usage
+	help
+	exit 0 ;
+fi
+
+echo "file://$(realpath ${arg[ARG_FILES]})"
+
+exit 0;
