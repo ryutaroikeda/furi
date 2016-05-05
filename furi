@@ -15,7 +15,7 @@ ENDUSAGE
 function help {
 	cat << ENDHELP
 	Description
-	Prints the URI of file.
+	Open the file in a browser.
 		-h Print this message.
 	
 ENDHELP
@@ -42,6 +42,6 @@ if [ -n "${arg[ARG_HELP]}" ] ; then
 	exit 0 ;
 fi
 
-echo "file://$(realpath ${arg[ARG_FILES]})"
-
+url="file://$(realpath ${arg[ARG_FILES]})"
+firefox --new-window "$url"
 exit 0;
